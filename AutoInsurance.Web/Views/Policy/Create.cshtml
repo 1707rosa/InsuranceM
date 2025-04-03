@@ -1,0 +1,84 @@
+﻿@model Autoinsurance.Domain.Entities.Policy
+
+<div class="container mt-5">
+    <h2 class="text-center mb-5">Registrar Póliza</h2>
+
+    <form asp-action="Create" class="card p-5 shadow-lg rounded-3 bg-light">
+        <div class="mb-4">
+            <label asp-for="PolicyNumber" class="form-label fs-5 fw-semibold">Número de Póliza</label>
+            <input asp-for="PolicyNumber" class="form-control form-control-lg" placeholder="Ingrese el número de póliza" />
+            <span asp-validation-for="PolicyNumber" class="text-danger"></span>
+        </div>
+
+        <div class="mb-4">
+            <label asp-for="CustomersId" class="form-label fs-5 fw-semibold">Cliente</label>
+            <select asp-for="CustomersId" class="form-select form-select-lg" id="Cliente">
+                @if (ViewData["CustomersId"] != null)
+                {
+                    var customers = ViewData["CustomersId"] as SelectList;
+                    foreach (var customer in customers)
+                    {
+                        <option value="@customer.Value">@customer.Text</option>
+                    }
+                }
+                else
+                {
+                    <option value="">No hay clientes disponibles</option>
+                }
+            </select>
+            <span asp-validation-for="CustomersId" class="text-danger"></span>
+        </div>
+
+        <div class="mb-4">
+            <label asp-for="VehicleId" class="form-label fs-5 fw-semibold">Vehículo</label>
+            <select asp-for="VehicleId" class="form-select form-select-lg">
+                <option value="">Seleccione un Vehículo</option>
+                @if (ViewData["VehicleId"] != null)
+                {
+                    var vehicles = ViewData["VehicleId"] as SelectList;
+                    foreach (var vehicle in vehicles)
+                    {
+                        <option value="@vehicle.Value">@vehicle.Text</option>
+                    }
+                }
+                else
+                {
+                    <option value="">No hay vehículos disponibles</option>
+                }
+            </select>
+            <span asp-validation-for="VehicleId" class="text-danger"></span>
+        </div>
+
+        <div class="mb-4">
+            <label asp-for="CoverageAmount" class="form-label fs-5 fw-semibold">Monto de Cobertura</label>
+            <input asp-for="CoverageAmount" class="form-control form-control-lg" placeholder="Ingrese el monto de cobertura" />
+            <span asp-validation-for="CoverageAmount" class="text-danger"></span>
+        </div>
+
+        <div class="mb-4">
+            <label asp-for="PremiumAmount" class="form-label fs-5 fw-semibold">Monto de Prima</label>
+            <input asp-for="PremiumAmount" class="form-control form-control-lg" placeholder="Ingrese el monto de prima" />
+            <span asp-validation-for="PremiumAmount" class="text-danger"></span>
+        </div>
+
+        <div class="mb-4">
+            <label asp-for="StartDate" class="form-label fs-5 fw-semibold">Fecha de Inicio</label>
+            <input asp-for="StartDate" class="form-control form-control-lg" type="date" />
+            <span asp-validation-for="StartDate" class="text-danger"></span>
+        </div>
+
+        <div class="mb-4">
+            <label asp-for="EndDate" class="form-label fs-5 fw-semibold">Fecha de Finalización</label>
+            <input asp-for="EndDate" class="form-control form-control-lg" type="date" />
+            <span asp-validation-for="EndDate" class="text-danger"></span>
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary btn-lg px-5 py-3">Registrar Póliza</button>
+        </div>
+    </form>
+
+    <div class="text-center mt-4">
+        <a href="@Url.Action("Index", "Policy")" class="btn btn-secondary btn-lg">Volver a la lista</a>
+    </div>
+</div>

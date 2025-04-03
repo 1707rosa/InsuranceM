@@ -1,0 +1,45 @@
+﻿@model Autoinsurance.Domain.Entities.Payment
+
+@{
+    ViewData["Title"] = "Editar Pago";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-5">Editar Pago</h2>
+
+    <form asp-action="Edit" method="post" class="card p-5 shadow-lg rounded-3 bg-light">
+        @Html.HiddenFor(m => m.Id)
+
+        <div class="mb-4">
+            <label asp-for="PaymentDate" class="form-label fs-5 fw-semibold">Fecha de Pago</label>
+            <input asp-for="PaymentDate" class="form-control form-control-lg" type="date" />
+            <span asp-validation-for="PaymentDate" class="text-danger"></span>
+        </div>
+
+        <div class="mb-4">
+            <label asp-for="Amount" class="form-label fs-5 fw-semibold">Monto</label>
+            <input asp-for="Amount" class="form-control form-control-lg" />
+            <span asp-validation-for="Amount" class="text-danger"></span>
+        </div>
+
+        <div class="mb-4">
+            <label asp-for="PolicyId" class="form-label fs-5 fw-semibold">Póliza</label>
+            <select asp-for="PolicyId" class="form-select form-select-lg">
+                <option value="">Seleccione una Póliza</option>
+                @foreach (var policy in ViewBag.Policies as List<Autoinsurance.Domain.Entities.Policy>)
+                {
+                    <option value="@policy.Id">@policy.PolicyNumber</option>
+                }
+            </select>
+            <span asp-validation-for="PolicyId" class="text-danger"></span>
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary btn-lg px-5 py-3">Guardar cambios</button>
+        </div>
+    </form>
+
+    <div class="text-center mt-4">
+        <a href="@Url.Action("Index", "Payments")" class="btn btn-secondary btn-lg">Volver a la lista</a>
+    </div>
+</div>
